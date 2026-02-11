@@ -1,17 +1,5 @@
 #!/usr/bin/env python3
 
-# ************************************************************************* #
-#                                                                           #
-#                                                      :::      ::::::::    #
-#  ft_plant_factory.py                               :+:      :+:    :+:    #
-#                                                  +:+ +:+         +:+      #
-#  By: aezzirar <aezzirar@student.42.fr>         +#+  +:+       +#+         #
-#                                              +#+#+#+#+#+   +#+            #
-#  Created: 2026/02/06 10:34:58 by aezzirar        #+#    #+#               #
-#  Updated: 2026/02/07 09:06:49 by aezzirar        ###   ########.fr        #
-#                                                                           #
-# ************************************************************************* #
-
 class Plant:
 
     total = 0
@@ -28,7 +16,7 @@ class Plant:
     def get_total():
         return f"\nTotal plants created: {Plant.total}"
 
-ho
+
 print("=== Plant Factory Output ===")
 p1 = Plant("Rose", 25, 30)
 p2 = Plant("Oak", 200, 365)

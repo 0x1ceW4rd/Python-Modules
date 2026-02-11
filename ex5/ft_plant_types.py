@@ -1,17 +1,5 @@
 #!/usr/bin/env python3
 
-# ************************************************************************* #
-#                                                                           #
-#                                                      :::      ::::::::    #
-#  ft_plant_types.py                                 :+:      :+:    :+:    #
-#                                                  +:+ +:+         +:+      #
-#  By: aezzirar <aezzirar@student.42.fr>         +#+  +:+       +#+         #
-#                                              +#+#+#+#+#+   +#+            #
-#  Created: 2026/02/06 12:54:26 by aezzirar        #+#    #+#               #
-#  Updated: 2026/02/06 17:58:39 by aezzirar        ###   ########.fr        #
-#                                                                           #
-# ************************************************************************* #
-
 class Plant:
     def __init__(self, name, height, age):
         self.name = name.capitalize()

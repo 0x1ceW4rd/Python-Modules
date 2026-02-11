@@ -1,17 +1,5 @@
 #!/usr/bin/env python3
 
-# ************************************************************************* #
-#                                                                           #
-#                                                      :::      ::::::::    #
-#  ft_garden_security.py                             :+:      :+:    :+:    #
-#                                                  +:+ +:+         +:+      #
-#  By: aezzirar <aezzirar@student.42.fr>         +#+  +:+       +#+         #
-#                                              +#+#+#+#+#+   +#+            #
-#  Created: 2026/02/06 10:34:36 by aezzirar        #+#    #+#               #
-#  Updated: 2026/02/06 19:08:11 by aezzirar        ###   ########.fr        #
-#                                                                           #
-# ************************************************************************* #
-
 class Plant:
     def __init__(self, name, height=0, age=0):
         self.name = name.capitalize()
