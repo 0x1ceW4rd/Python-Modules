@@ -1,17 +1,5 @@
 #!/usr/bin/env python3
 
-# ************************************************************************* #
-#                                                                           #
-#                                                      :::      ::::::::    #
-#  ft_garden_analytics.py                            :+:      :+:    :+:    #
-#                                                  +:+ +:+         +:+      #
-#  By: aezzirar <aezzirar@student.42.fr>         +#+  +:+       +#+         #
-#                                              +#+#+#+#+#+   +#+            #
-#  Created: 2026/02/06 19:12:25 by aezzirar        #+#    #+#               #
-#  Updated: 2026/02/11 11:27:52 by aezzirar        ###   ########.fr        #
-#                                                                           #
-# ************************************************************************* #
-
 class Plant:
     """Base plant class"""
     def __init__(self, name: str, height: float,) -> None:
@@ -28,6 +16,7 @@ class Plant:
         print(f"{self.name} grew {amount}cm")
     
     def get_type(self):
+        """Returns plant type"""
         return "regular"
 
 
@@ -35,15 +24,20 @@ class FloweringPlant(Plant):
     """Plant that can flower"""
     def __init__(self, name: str, height: float, color: str) -> None:
         super().__init__(name, height)
-        self.color = color
+        self.color = color.capitalize()
 
     def bloom(self) -> str:
         """Returns bloom status"""
-        return f"{self.color} (blooming)"
+        return f"{self.color} flowers (blooming)"
 
     def get_type(self):
+        """Return plant type"""
         return "flowering"
 
+    def get_info(self) -> str:
+        """Returns plant information as string"""
+        return f"{self.name}: {self.height}cm, {self.bloom()}"
+    
 class PrizeFlower(FloweringPlant):
     """Prize-winning flowering plant"""
     def __init__(self, name: str, height: float, color: str, prize_points: int) -> None:
@@ -55,14 +49,18 @@ class PrizeFlower(FloweringPlant):
         return f"{self.name} won in {self.prize_points}"
 
     def get_type(self):
+        """Return plant type"""
         return "prize flowers"
 
+    def get_info(self) -> str:
+        """Returns plant information as string"""
+        return f"{self.name}: {self.height}cm, {self.bloom()}, Prize points: {self.prize_points}"
 
 class GardenManager:
     """Manages multiple gardens and provides analytics"""
 
-    # Class attribute
     total_managers = 0
+    total_gardens = 0
 
     def __init__(self, name: str) -> None:
         """Initialize a garden manager"""
@@ -70,23 +68,25 @@ class GardenManager:
         self.gardens = {}  
         GardenManager.total_managers += 1
 
-    # INSTANCE METHOD - works on specific manager
     def add_garden(self, garden_name: str, plants: list) -> None:
-        """Add a garden with its plants"""
+        """sets up a garden with its plants"""
         garden_data = {
-            'name': garden_name,
+            'name': garden_name.capitalize(),
             'plants': plants
         }
         self.gardens [garden_data['name']]= (garden_data)
-        print(f"Added garden: {garden_name}")
+        GardenManager.total_gardens += 1
+        print(f"\nAdded garden: {garden_name}'s Garden\n")
+        for plant in plants:
+            print(f"Added {plant.name} to {garden_name}'s garden")
 
-    def garden_report(self) -> None:
+    def garden_report(self, garden_name) -> None:
         """Display all gardens and their plants"""
-        print(f"\n=== {self.gardens}'s Garden Report ===")
-        for garden in self.gardens:
-            print(f"\nGarden: {garden['name']}")
-            for plant in garden['plants']:
-                print(f"  - {plant.get_info()}")
+        print(f"\n=== {self.gardens[garden_name.capitalize()]['name']}'s Garden Report ===")
+        for plant in self.gardens[garden_name.capitalize()]['plants']:
+            print(f"  - {plant.get_info()}")
+        plants_added = len(self.gardens[garden_name.capitalize()]['plants'])
+        print({})
 
     @classmethod
     def create_garden_network(cls, network_name: str) -> 'GardenManager':
@@ -94,15 +94,15 @@ class GardenManager:
         print(f"\nCreating garden network: {network_name}")
         new_network = cls(network_name)
         
-        # Add some default gardens
-        alice_plants = [
-            Plant("Oak Tree", 100),
-            FloweringPlant("Rose", 25, "red"),
-            PrizeFlower("Sunflower", 50, "yellow", 10)
-        ]
-        new_network.add_garden("Alice's Garden", alice_plants)
-        bob_plants = [None]
-        new_network.add_garden("Bob's Garden", bob_plants)
+        # some default gardens
+        alice_plants = [Plant("Oak Tree", 100),
+                    FloweringPlant("Rose", 25, "Red"),
+                    PrizeFlower("Sunflower", 50, 'Yellow', 10)]
+        bob_plants = []
+
+        new_network.add_garden("Alice", alice_plants)
+        new_network.add_garden("Bob", bob_plants)
+        
         return new_network
 
     class GardenStats:
@@ -154,8 +154,17 @@ class GardenManager:
             return type_count
 
 
+if __name__ == "__main__":
+    print("=== Garden Management System Demo ===")
 
+    main_manager = GardenManager("Main Manager")
 
-firstgarden = GardenManager.create_garden_network("Alice")
+    sub_manager = main_manager.create_garden_network("First Manager")
+    
 
-firstgarden.garden_report()
+    print("Alice is helping all plants grow...")
+    for plant in sub_manager.gardens['Alice']['plants']:
+        plant.grow(1)
+
+    #print(manager.gardens["Alice"]['plants'][1].name)
+    #manager.garden_report("alice")
