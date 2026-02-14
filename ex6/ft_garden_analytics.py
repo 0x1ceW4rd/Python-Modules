@@ -22,6 +22,7 @@ class Plant:
     
     @classmethod
     def total_growth(cls):
+        """return the total growth that has been done by the garden"""
         return f"{cls.total_growth_size}"
     
     def get_type(self):
@@ -60,7 +61,7 @@ class PrizeFlower(FloweringPlant):
     def get_type(self):
         """Return plant type"""
         return "prize flowers"
-
+    
     def get_info(self) -> str:
         """Returns plant information as string"""
         return f"{self.name}: {self.height}cm, {self.bloom()}, Prize points: {self.prize_points}"
@@ -85,24 +86,39 @@ class GardenManager:
         }
         self.gardens [garden_data['name']]= (garden_data)
         GardenManager.total_gardens += 1
-        print(f"\nAdded garden: {garden_name}'s Garden\n")
+        #print(f"\nAdded garden: {garden_name}'s Garden\n")
         for plant in plants:
             print(f"Added {plant.name} to {garden_name}'s garden")
 
     def garden_report(self, garden_name) -> None:
         """Display all gardens and their plants"""
-        print(f"\n=== {self.gardens[garden_name.capitalize()]['name']}'s Garden Report ===")
-        for plant in self.gardens[garden_name.capitalize()]['plants']:
+        garden_key = garden_name.capitalize()
+        garden = self.gardens[garden_key]
+
+        print(f"\n=== {garden['name']}'s Garden Report ===")
+        for plant in garden['plants']:
             print(f"  - {plant.get_info()}")
-        plants_added = len(self.gardens[garden_name.capitalize()]['plants'])
-        print(f"\nPlants added: {plants_added}, Total growth: "
-              f"{self.gardens[garden_name.capitalize()]['plants'][0].total_growth()}cm")
-        print("Plant types: 1 regular, 1 flowering, 1 prize flowers") #fix this bitch
+
+        plants_added = len(garden['plants'])
+
+        # Count plants by type
+        type_counts = {}
+        for plant in garden['plants']:
+            plant_type = plant.get_type()
+            type_counts[plant_type] = type_counts.get(plant_type, 0) + 1
+
+        print(f"\nPlants added: {plants_added}, Total growth: {Plant.total_growth()}cm")
+        print("Plant types:", end=' ')
+        output = ""
+        for plant_type, count in type_counts.items():
+            output += f"{count} {plant_type}, "
+        output = output[:-2]
+        print(f"Plant types: {output}")
 
     @classmethod
     def create_garden_network(cls, network_name: str) -> 'GardenManager':
         """Create a network of garden managers"""
-        print(f"\nCreating garden network: {network_name}")
+        #print(f"\nCreating garden network: {network_name}")
         new_network = cls(network_name)
         
         # some default gardens
@@ -110,6 +126,7 @@ class GardenManager:
                     FloweringPlant("Rose", 25, "Red"),
                     PrizeFlower("Sunflower", 50, 'Yellow', 10)]
         bob_plants = []
+        #bob_plants = [PrizeFlower("Cherry Blossom", 450, "Pink", 92)]
 
         new_network.add_garden("Alice", alice_plants)
         new_network.add_garden("Bob", bob_plants)
@@ -166,15 +183,16 @@ class GardenManager:
 
 
 if __name__ == "__main__":
-    print("=== Garden Management System Demo ===")
+    print("=== Garden Management System Demo ===\n")
 
     main_manager = GardenManager("Main Manager")
 
     sub_manager = main_manager.create_garden_network("First Manager")
     
+    def alice_grows():
+        print("\nAlice is helping all plants grow...")
+        for plant in sub_manager.gardens['Alice']['plants']:
+            plant.grow(1)
 
-    print("Alice is helping all plants grow...")
-    for plant in sub_manager.gardens['Alice']['plants']:
-        plant.grow(1)
-
+    alice_grows()
     sub_manager.garden_report("alice")
