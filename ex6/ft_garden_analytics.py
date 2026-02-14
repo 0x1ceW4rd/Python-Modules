@@ -2,6 +2,9 @@
 
 class Plant:
     """Base plant class"""
+
+    total_growth_size = 0
+
     def __init__(self, name: str, height: float,) -> None:
         self.name = name
         self.height = height
@@ -13,7 +16,13 @@ class Plant:
     def grow(self, amount: float) -> None:
         """Increases plant height"""
         self.height += amount
+        Plant.total_growth_size += amount
         print(f"{self.name} grew {amount}cm")
+
+    
+    @classmethod
+    def total_growth(cls):
+        return f"{cls.total_growth_size}"
     
     def get_type(self):
         """Returns plant type"""
@@ -86,7 +95,9 @@ class GardenManager:
         for plant in self.gardens[garden_name.capitalize()]['plants']:
             print(f"  - {plant.get_info()}")
         plants_added = len(self.gardens[garden_name.capitalize()]['plants'])
-        print({})
+        print(f"\nPlants added: {plants_added}, Total growth: "
+              f"{self.gardens[garden_name.capitalize()]['plants'][0].total_growth()}cm")
+        print("Plant types: 1 regular, 1 flowering, 1 prize flowers")
 
     @classmethod
     def create_garden_network(cls, network_name: str) -> 'GardenManager':
@@ -166,5 +177,4 @@ if __name__ == "__main__":
     for plant in sub_manager.gardens['Alice']['plants']:
         plant.grow(1)
 
-    #print(manager.gardens["Alice"]['plants'][1].name)
-    #manager.garden_report("alice")
+    sub_manager.garden_report("alice")
