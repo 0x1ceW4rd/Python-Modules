@@ -97,7 +97,7 @@ class GardenManager:
         plants_added = len(self.gardens[garden_name.capitalize()]['plants'])
         print(f"\nPlants added: {plants_added}, Total growth: "
               f"{self.gardens[garden_name.capitalize()]['plants'][0].total_growth()}cm")
-        print("Plant types: 1 regular, 1 flowering, 1 prize flowers")
+        print("Plant types: 1 regular, 1 flowering, 1 prize flowers") #fix this bitch
 
     @classmethod
     def create_garden_network(cls, network_name: str) -> 'GardenManager':
