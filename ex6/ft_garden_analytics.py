@@ -93,6 +93,11 @@ class GardenManager:
         for plant in plants:
             print(f"Added {plant.name} to {garden_name}'s garden")
 
+    def add_plant(self, garden_name: str, plant) -> None:
+        """Add a single plant to the garden."""
+        self.gardens[garden_name]['plants'].append(plant)
+        print(f"Added {plant.name} to {garden_name}")
+
     def garden_report(self, garden_name) -> None:
         """Display all gardens and their plants"""
         garden_key = garden_name.capitalize()

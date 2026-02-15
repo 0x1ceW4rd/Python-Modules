@@ -8,11 +8,12 @@
 #  By: aezzirar <aezzirar@student.42.fr>         +#+  +:+       +#+         #
 #                                              +#+#+#+#+#+   +#+            #
 #  Created: 2026/02/06 10:33:42 by aezzirar        #+#    #+#               #
-#  Updated: 2026/02/06 12:55:09 by aezzirar        ###   ########.fr        #
+#  Updated: 2026/02/15 10:15:12 by aezzirar        ###   ########.fr        #
 #                                                                           #
 # ************************************************************************* #
 
 def ft_garden_intro():
+    """prints some info about a garden"""
     print("=== Welcome to My Garden ===")
     print("Plant: Rose")
     print("Height: 25cm")
