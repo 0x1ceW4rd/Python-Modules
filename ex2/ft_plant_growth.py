@@ -27,8 +27,8 @@ if __name__ == "__main__":
     p1 = Plant("Rose", 25, 30)
     print(p1.get_info())
     print("=== Day 7 ===")
-    n = 7
-    p1.age(7)
+    n = 6
+    p1.age(6)
     p1.grow(n)
     print(p1.get_info())
     print(f"Growth this week: +{n}cm")
