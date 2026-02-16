@@ -46,7 +46,9 @@ class Tree(Plant):
 
     def produce_shade(self):
         """Simulate the tree producing shade by printing a message."""
-        print(f"{self.name} provides 78 square meters of shade\n")
+        print(f"{self.name} provides "
+              f"{(3.14 * ((self.height/100)*(self.height/100))):.0f}"
+              f" square meters of shade\n")
 
 
 class Vegetable(Plant):
