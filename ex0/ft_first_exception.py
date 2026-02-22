@@ -11,7 +11,6 @@ def check_temperature(temp_str: str) -> int:
             print(f"Temperature {temp_str}°C is perfect for plants!\n")
     except:
         print(f"Error: '{temp_str}' is not a valid number\n")
-    
 
 
 print("=== Garden Temperature Checker ===\n")
