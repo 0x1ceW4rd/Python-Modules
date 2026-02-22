@@ -1,7 +1,22 @@
 #!/usr/bin/env python3
 
-def test_error_types():
+def garden_operations():
+    """demonstrates common errors"""
+    num = "six seven"
+    int(num)
 
+    num = 67
+    num = num/0
+
+    open('missing.txt', 'r')
+
+    human = {'name': 'Adnane'}
+    plant = human['plantr']
+    plant
+
+
+def test_error_types():
+    """Catches each error and explains what went wrong"""
     try:
         print("Testing ValueError...")
         num = "six seven"
@@ -34,8 +49,9 @@ def test_error_types():
     print("Caught an error, but program continues!\n")
 
 
-print("=== Garden Error Types Demo ===", end="\n\n")
+if __name__ == "__main__":
+    print("=== Garden Error Types Demo ===", end="\n\n")
 
-test_error_types()
+    test_error_types()
 
-print("All error types tested successfully!")
+    print("All error types tested successfully!")

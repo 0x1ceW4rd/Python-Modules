@@ -1,11 +1,13 @@
 #!/usr/bin/env python3
 
 class GardenError(Exception):
+    """spesific exception/error GardenError"""
     def __init__(self, *args):
         super().__init__(*args)
 
 
 class PlantError(GardenError):
+    """spesific exception/error PlantError"""
     def __init__(self, plant):
         self.plant = plant.capitalize()
         super().__init__(f"Caught PlantError: The "
@@ -13,6 +15,7 @@ class PlantError(GardenError):
 
 
 class WaterError(GardenError):
+    """spesific exception/error WaterError"""
     def __init__(self):
         super().__init__("Caught WaterError: Not enough water in the tank!")
 

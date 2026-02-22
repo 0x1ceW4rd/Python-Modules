@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 def water_plants(plant_list):
+    """waters the plants and handles errors"""
     try:
         print("Opening watering system")
         for plant in plant_list:
@@ -12,6 +13,7 @@ def water_plants(plant_list):
 
 
 def test_watering_system():
+    """tests the watering system"""
     print("=== Garden Watering System ===\n")
 
     print("Testing normal watering...")
