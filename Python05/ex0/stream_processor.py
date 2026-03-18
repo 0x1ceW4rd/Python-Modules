@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 from abc import ABC, abstractmethod
-from typing import Any, List, Union, Dict, Optional
+from typing import Any, List, Union, Dict
 
 
 class DataProcessor(ABC):
@@ -32,7 +32,6 @@ class NumericProcessor(DataProcessor):
         print("Initializing Numeric Processor...")
 
     def validate(self, data: Any) -> bool:
-        # Use List and Union type hints as required
         if isinstance(data, list):
             numbers: List[Union[int, float]] = data
             return all(isinstance(x, (int, float)) for x in numbers)
@@ -68,11 +67,10 @@ class TextProcessor(DataProcessor):
 class LogProcessor(DataProcessor):
     """Processor for log entries with level detection."""
 
-    # Use Dict for level mapping (optional, to demonstrate Dict usage)
     _LEVEL_PREFIXES: Dict[str, str] = {
         "ERROR": "[ALERT] ",
         "WARNING": "[WARN] ",
-        "INFO": "[INFO] "
+        "INFO": "[INFO] ",
     }
 
     def __init__(self) -> None:
@@ -85,7 +83,6 @@ class LogProcessor(DataProcessor):
     def process(self, data: Any) -> str:
         if not self.validate(data):
             raise ValueError("Invalid data for LogProcessor")
-        # Extract log level if present
         level: str = "INFO"
         message: str = data
         if data.startswith("ERROR:"):
@@ -110,7 +107,6 @@ class LogProcessor(DataProcessor):
 def main() -> None:
     print("=== CODE NEXUS - DATA PROCESSOR FOUNDATION ===")
 
-    # Instantiate processors
     print()
     num_proc = NumericProcessor()
     data_num = [1, 2, 3, 4, 5]
@@ -156,11 +152,9 @@ def main() -> None:
     else:
         print("Validation failed")
 
-    
     print("\n=== Polymorphic Processing Demo ===")
     print("Processing multiple data types through same interface...")
 
-    # Demo with the same processor instances
     demo_data = [
         ([1, 2, 3], num_proc),
         ("Hello World!", text_proc),
