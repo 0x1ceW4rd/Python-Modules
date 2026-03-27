@@ -128,7 +128,7 @@ class TransactionStream(DataStream):
     def filter_data(
         self, data_batch: List[Any], criteria: Optional[str] = None
     ) -> List[Any]:
-        if criteria == "large":
+        if criteria == "high_priority":
             filtered = []
             for item in data_batch:
                 try:
@@ -171,7 +171,7 @@ class EventStream(DataStream):
     def filter_data(
         self, data_batch: List[Any], criteria: Optional[str] = None
     ) -> List[Any]:
-        if criteria == "critical":
+        if criteria == "high_priority":
             return [item for item in data_batch if item == "error"]
         return super().filter_data(data_batch, criteria)
 
