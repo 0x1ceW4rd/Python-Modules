@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 from abc import ABC, abstractmethod
-from typing import Any, List, Union, Dict
+from typing import Any, List, Union, Dict, Optional
 
 
 class DataProcessor(ABC):
@@ -40,7 +40,7 @@ class NumericProcessor(DataProcessor):
     def process(self, data: Any) -> str:
         if not self.validate(data):
             raise ValueError("Invalid data for NumericProcessor")
-        count = len(data)
+        count: Optional[int] = len(data)
         total = sum(data)
         avg = total / count if count else 0.0
         return f"Processed {count} numeric values, sum={total}, avg={avg}"
