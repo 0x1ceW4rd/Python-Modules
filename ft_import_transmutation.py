@@ -24,14 +24,11 @@ print(f"heal(): {heal()}")
 print()
 
 print("Method 4 - Multiple imports:")
-from alchemy.elements import create_earth
-
-print(f"create_earth(): {create_earth()}")
-from alchemy import create_fire
-
-print(f"create_fire(): {create_fire()}")
+from alchemy.elements import create_earth, create_fire
 from alchemy.potions import strength_potion
 
+print(f"create_earth(): {create_earth()}")
+print(f"create_fire(): {create_fire()}")
 print(f"strength_potion(): {strength_potion()}")
 
 print()
