@@ -15,11 +15,12 @@ for m in modules:
         error.append(m)
 if error:
     print("Missing dependencies: ", end="")
-    for e in error:
-        if len(error) > 1:
+
+    if len(error) > 1:
+        for e in error:
             print(", ".join(error))
-        else:
-            print(e)
+    elif len(error) == 1:
+        print(error)
     print(
         "Please install with: \n"
         "pip install -r requirements.txt \nor\n"
