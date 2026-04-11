@@ -61,74 +61,80 @@ def main() -> None:
     print("Space Mission Crew Validation")
     print("=========================================")
 
-    # Valid mission (matches expected output)
-    crew_list = [
-        CrewMember(
-            member_id="CREW001",
-            name="Sarah Connor",
-            rank=Rank.commander,
-            age=45,
-            specialization="Mission Command",
-            years_experience=20,
-            is_active=True,
-        ),
-        CrewMember(
-            member_id="CREW002",
-            name="John Smith",
-            rank=Rank.lieutenant,
-            age=38,
-            specialization="Navigation",
-            years_experience=12,
-            is_active=True,
-        ),
-        CrewMember(
-            member_id="CREW003",
-            name="Alice Johnson",
-            rank=Rank.officer,
-            age=32,
-            specialization="Engineering",
-            years_experience=8,
-            is_active=True,
-        ),
-    ]
+    try:
+        # Valid mission (matches expected output)
+        crew_list = [
+            CrewMember(
+                member_id="CREW001",
+                name="Sarah Connor",
+                rank=Rank.commander,
+                age=45,
+                specialization="Mission Command",
+                years_experience=20,
+                is_active=True,
+            ),
+            CrewMember(
+                member_id="CREW002",
+                name="John Smith",
+                rank=Rank.lieutenant,
+                age=38,
+                specialization="Navigation",
+                years_experience=12,
+                is_active=True,
+            ),
+            CrewMember(
+                member_id="CREW003",
+                name="Alice Johnson",
+                rank=Rank.officer,
+                age=32,
+                specialization="Engineering",
+                years_experience=8,
+                is_active=True,
+            ),
+        ]
 
-    valid_mission = SpaceMission(
-        mission_id="M2024_MARS",
-        mission_name="Mars Colony Establishment",
-        destination="Mars",
-        launch_date=datetime(2024, 6, 1),
-        duration_days=900,
-        crew=crew_list,
-        budget_millions=2500.0,
-    )
+        valid_mission = SpaceMission(
+            mission_id="M2024_MARS",
+            mission_name="Mars Colony Establishment",
+            destination="Mars",
+            launch_date=datetime(2024, 6, 1),
+            duration_days=900,
+            crew=crew_list,
+            budget_millions=2500.0,
+        )
 
-    print("Valid mission created:")
-    print(f"Mission: {valid_mission.mission_name}")
-    print(f"ID: {valid_mission.mission_id}")
-    print(f"Destination: {valid_mission.destination}")
-    print(f"Duration: {valid_mission.duration_days} days")
-    print(f"Budget: ${valid_mission.budget_millions}M")
-    print(f"Crew size: {len(valid_mission.crew)}")
-    print("Crew members:")
-    for crew in valid_mission.crew:
-        print(f"- {crew.name} ({crew.rank.value}) - {crew.specialization}")
+        print("Valid mission created:")
+        print(f"Mission: {valid_mission.mission_name}")
+        print(f"ID: {valid_mission.mission_id}")
+        print(f"Destination: {valid_mission.destination}")
+        print(f"Duration: {valid_mission.duration_days} days")
+        print(f"Budget: ${valid_mission.budget_millions}M")
+        print(f"Crew size: {len(valid_mission.crew)}")
+        print("Crew members:")
+        for crew in valid_mission.crew:
+            print(f"- {crew.name} ({crew.rank.value}) - {crew.specialization}")
+    except ValidationError as e:
+        # Print error message in case of being one
+        for i, _ in enumerate(e.errors()):
+            print(e.errors()[i]["msg"])
     print("\n=========================================")
 
     # Invalid mission: missing commander/captain
-    invalid_crew = [
-        CrewMember(
-            member_id="CREW004",
-            name="Nobody",
-            rank=Rank.cadet,
-            age=25,
-            specialization="Janitor",
-            years_experience=1,
-            is_active=True,
-        )
-    ]
 
-    print("Expected validation error:")
     try:
+        invalid_crew = [
+            CrewMember(
+                member_id="CREW004",
+                name="Nobody",
+                rank=Rank.cadet,
+                age=25,
+                specialization="Janitor",
+                years_experience=1,
+                is_active=True,
+            )
+        ]
+
+        print("Expected validation error:")
         _ = SpaceMission(
             mission_id="M999_BAD",
             mission_name="Bad Mission",
@@ -140,8 +146,8 @@ def main() -> None:
         )
     except ValidationError as e:
         # Print only the first error message as in the example
-        error_msg = str(e.errors()[0]["msg"]) if e.errors() else str(e)
-        print(error_msg)
+        for i, _ in enumerate(e.errors()):
+            print(e.errors()[i]["msg"])
 
 
 if __name__ == "__main__":

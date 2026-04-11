@@ -66,9 +66,9 @@ def main():
     except ValidationError as e:
         print("Unexpected validation errors:")
         for error in e.errors():
-            print(f"  - {error['msg']}")
+            print(f"{error['msg']}")
 
-    print("\n" + "=" * 40 + "\n")
+    print("\n" + "=" * 40)
 
     # Invalid contact (telepathic with only 2 witnesses)
     try:
